@@ -158,6 +158,23 @@ var (
 			ac.EvalPermission(ac.ActionAlertingReceiversPermissionsWrite, models.ScopeReceiversProvider.GetResourceScopeUID(uid)),
 		)
 	}
+
+	testReceiversPreConditionEval = ac.EvalAny(
+		ac.EvalPermission(ac.ActionAlertingNotificationsWrite),
+		ac.EvalPermission(ac.ActionAlertingReceiversTest),
+	)
+
+	testReceiversAllReceiversEval = ac.EvalAny(
+		ac.EvalPermission(ac.ActionAlertingNotificationsWrite),
+		ac.EvalPermission(ac.ActionAlertingReceiversTest, models.ScopeReceiversAll),
+	)
+
+	testReceiversEval = func(uid string) ac.Evaluator {
+		return ac.EvalAny(
+			ac.EvalPermission(ac.ActionAlertingNotificationsWrite),
+			ac.EvalPermission(ac.ActionAlertingReceiversTest, models.ScopeReceiversProvider.GetResourceScopeUID(uid)),
+		)
+	}
 )
 
 type ReceiverAccess[T models.Identified] struct {
@@ -168,6 +185,7 @@ type ReceiverAccess[T models.Identified] struct {
 	updateProtected actionAccess[T]
 	delete          actionAccess[T]
 	permissions     actionAccess[T]
+	test            actionAccess[T]
 }
 
 // NewReceiverAccess creates a new ReceiverAccess service. If includeProvisioningActions is true, the service will include
@@ -258,6 +276,18 @@ func NewReceiverAccess[T models.Identified](a ac.AccessControl, includeProvision
 			},
 			authorizeAll: permissionsAllReceiversEval,
 		},
+		test: actionAccess[T]{
+			genericService: genericService{
+				ac: a,
+			},
+			resource:      "receiver",
+			action:        "test",
+			authorizeSome: testReceiversPreConditionEval,
+			authorizeOne: func(receiver models.Identified) ac.Evaluator {
+				return testReceiversEval(receiver.GetUID())
+			},
+			authorizeAll: testReceiversAllReceiversEval,
+		},
 	}
 
 	// If this service is meant for the provisioning API, we include the provisioning actions as possible permissions.
@@ -282,6 +312,7 @@ func NewReceiverAccess[T models.Identified](a ac.AccessControl, includeProvision
 	extendAccessControl(&rcvAccess.update, ac.EvalAll, rcvAccess.read)
 	extendAccessControl(&rcvAccess.delete, ac.EvalAll, rcvAccess.read)
 	extendAccessControl(&rcvAccess.permissions, ac.EvalAll, rcvAccess.read)
+	extendAccessControl(&rcvAccess.test, ac.EvalAll, rcvAccess.read)
 
 	return rcvAccess
 }
@@ -369,6 +400,14 @@ func (i identified) GetUID() string {
 	return i.uid
 }
 
+func (s ReceiverAccess[T]) AuthorizeTestByUID(ctx context.Context, user identity.Requester, uid string) error {
+	return s.test.Authorize(ctx, user, identified{uid: uid})
+}
+
+func (s ReceiverAccess[T]) AuthorizeTest(ctx context.Context, user identity.Requester, receiver T) error {
+	return s.test.Authorize(ctx, user, receiver)
+}
+
 // AuthorizeDeleteByUID checks if user has access to delete a receiver by uid. Returns an error if user does not have access.
 func (s ReceiverAccess[T]) AuthorizeDeleteByUID(ctx context.Context, user identity.Requester, uid string) error {
 	return s.delete.Authorize(ctx, user, identified{uid: uid})
@@ -427,6 +466,12 @@ func (s ReceiverAccess[T]) Access(ctx context.Context, user identity.Requester, 
 		basePerms.Set(models.ReceiverPermissionModifyProtected, true)
 	}
 
+	if err := s.test.AuthorizePreConditions(ctx, user); err != nil {
+		basePerms.Set(models.ReceiverPermissionTest, false)
+	} else if err := s.test.AuthorizeAll(ctx, user); err == nil {
+		basePerms.Set(models.ReceiverPermissionTest, true)
+	}
+
 	if basePerms.AllSet() {
 		// Shortcut for the case when all permissions are known based on preconditions.
 		result := make(map[string]models.ReceiverPermissionSet, len(receivers))
@@ -462,6 +507,11 @@ func (s ReceiverAccess[T]) Access(ctx context.Context, user identity.Requester, 
 		if _, ok := permSet.Has(models.ReceiverPermissionModifyProtected); !ok {
 			err := s.updateProtected.authorize(ctx, user, rcv)
 			permSet.Set(models.ReceiverPermissionModifyProtected, err == nil)
+		}
+
+		if _, ok := permSet.Has(models.ReceiverPermissionTest); !ok {
+			err := s.test.authorize(ctx, user, rcv)
+			permSet.Set(models.ReceiverPermissionTest, err == nil)
 		}
 
 		result[rcv.GetUID()] = permSet

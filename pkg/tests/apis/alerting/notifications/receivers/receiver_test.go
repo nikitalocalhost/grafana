@@ -135,6 +135,7 @@ func TestIntegrationResourcePermissions(t *testing.T) {
 	creator := helper.CreateUser("creator", apis.Org1, org.RoleNone, []resourcepermissions.SetResourcePermissionCommand{
 		createWildcardPermission(
 			accesscontrol.ActionAlertingReceiversCreate,
+			accesscontrol.ActionAlertingReceiversTest,
 		),
 	})
 
@@ -144,8 +145,8 @@ func TestIntegrationResourcePermissions(t *testing.T) {
 	adminClient, err := v0alpha1.NewReceiverClientFromGenerator(admin.GetClientRegistry())
 	require.NoError(t, err)
 
-	writeACMetadata := []string{"canWrite", "canDelete"}
-	allACMetadata := []string{"canWrite", "canDelete", "canReadSecrets", "canAdmin", "canModifyProtected"}
+	writeACMetadata := []string{"canWrite", "canDelete", "canTest"}
+	allACMetadata := []string{"canWrite", "canDelete", "canReadSecrets", "canAdmin", "canModifyProtected", "canTest"}
 
 	mustID := func(user apis.User) int64 {
 		id, err := user.Identity.GetInternalID()

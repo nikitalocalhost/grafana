@@ -11,9 +11,16 @@ import (
 	"k8s.io/apimachinery/pkg/types"
 
 	model "github.com/grafana/grafana/apps/alerting/notifications/pkg/apis/alertingnotifications/v0alpha1"
+	"github.com/grafana/grafana/pkg/apimachinery/errutil"
 	"github.com/grafana/grafana/pkg/services/apiserver/endpoints/request"
 	gapiutil "github.com/grafana/grafana/pkg/services/apiserver/utils"
 	ngmodels "github.com/grafana/grafana/pkg/services/ngalert/models"
+)
+
+var (
+	ErrInvalidReceiver = errutil.BadRequest("alerting.notifications.receivers.invalid").MustTemplate(
+		"failed to convert receiver: {{ .Error }}",
+		errutil.WithPublic("Invalid receiver configuration"))
 )
 
 func convertToK8sResources(
@@ -151,7 +158,11 @@ func ConvertReceiverIntegrationToIntegration(receiverTitle string, integration m
 		var ok bool
 		config, ok = typeSchema.GetVersion(schema.Version(integration.Version))
 		if !ok {
-			return ngmodels.Integration{}, nil, fmt.Errorf("invalid version %s for integration type %s", integration.Version, integration.Type)
+			return ngmodels.Integration{}, nil, ErrInvalidReceiver.Build(errutil.TemplateData{
+				Private: nil,
+				Public:  nil,
+				Error:   fmt.Errorf("invalid version %s for integration type %s", integration.Version, integration.Type),
+			})
 		}
 	} else {
 		config = typeSchema.GetCurrentVersion()

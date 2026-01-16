@@ -9,6 +9,11 @@ import (
 	"github.com/grafana/grafana/pkg/apimachinery/errutil"
 )
 
+var (
+	ErrIntegrationNotFound    = errutil.NotFound("alerting.notifications.receivers.integrationNotFound", errutil.WithPublicMessage("Integration not found"))
+	ErrInvalidIntegrationTest = errutil.BadRequest("alerting.notifications.receivers.testing.invalid", errutil.WithPublicMessage("Invalid request to test integration"))
+)
+
 // WithPublicError sets the public message of an errutil error to the error message.
 func WithPublicError(err errutil.Error) error {
 	err.PublicMessage = err.Error()

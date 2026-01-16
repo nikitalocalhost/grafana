@@ -16,7 +16,9 @@ import (
 	"github.com/prometheus/alertmanager/silence/silencepb"
 	"github.com/prometheus/common/model"
 
+	"github.com/grafana/grafana/pkg/apimachinery/identity"
 	"github.com/grafana/grafana/pkg/services/ngalert/models"
+	"github.com/grafana/grafana/pkg/services/ngalert/notifier/legacy_storage"
 	"github.com/grafana/grafana/pkg/services/ngalert/store"
 
 	alertingImages "github.com/grafana/alerting/images"
@@ -449,4 +451,50 @@ func (f *fakeAlertRuleNotificationStore) ListNotificationSettings(ctx context.Co
 
 	// Default values when no function hook is provided
 	return nil, nil
+}
+
+type FakeMultiOrgAlertmanager struct {
+	Calls struct {
+		AlertmanagerFor []AlertmanagerForCall
+	}
+	AlertmanagerForFunc func(orgID int64) (Alertmanager, error)
+}
+
+type AlertmanagerForCall struct {
+	OrgID int64
+}
+
+func (f *FakeMultiOrgAlertmanager) AlertmanagerFor(orgID int64) (Alertmanager, error) {
+	f.Calls.AlertmanagerFor = append(f.Calls.AlertmanagerFor, AlertmanagerForCall{OrgID: orgID})
+	if f.AlertmanagerForFunc != nil {
+		return f.AlertmanagerForFunc(orgID)
+	}
+	return nil, ErrNoAlertmanagerForOrg
+}
+
+type FakeReceiverService struct {
+	Calls struct {
+		GetReceiver []GetReceiverCall
+	}
+	GetReceiverFunc func(ctx context.Context, uid string, decrypt bool, user identity.Requester) (*models.Receiver, error)
+}
+
+type GetReceiverCall struct {
+	Ctx     context.Context
+	UID     string
+	Decrypt bool
+	User    identity.Requester
+}
+
+func (f *FakeReceiverService) GetReceiver(ctx context.Context, uid string, decrypt bool, user identity.Requester) (*models.Receiver, error) {
+	f.Calls.GetReceiver = append(f.Calls.GetReceiver, GetReceiverCall{
+		Ctx:     ctx,
+		UID:     uid,
+		Decrypt: decrypt,
+		User:    user,
+	})
+	if f.GetReceiverFunc != nil {
+		return f.GetReceiverFunc(ctx, uid, decrypt, user)
+	}
+	return nil, legacy_storage.ErrReceiverNotFound.Errorf("")
 }

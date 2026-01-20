@@ -6,6 +6,7 @@ import (
 	"errors"
 	"net/http"
 	"reflect"
+	"runtime/debug"
 
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apiserver/pkg/endpoints/request"
@@ -107,6 +108,8 @@ func logError(ctx context.Context, e errutil.Error, opt ErrorOptions) {
 		"Request error",
 		kv...,
 	)
+	// log stack
+	debug.PrintStack()
 }
 
 func fallbackOrInternalError(err error, opt ErrorOptions) errutil.Error {

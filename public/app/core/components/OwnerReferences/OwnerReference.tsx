@@ -1,5 +1,5 @@
 import { OwnerReference } from '@grafana/api-clients/rtkq/folder/v1beta1';
-import { useGetTeamMembersQuery } from '@grafana/api-clients/rtkq/iam/v0alpha1';
+import { useGetTeamQuery, useGetTeamMembersQuery } from '@grafana/api-clients/rtkq/iam/v0alpha1';
 import { Stack, Text, Avatar, Link, Tooltip } from '@grafana/ui';
 
 export const getGravatarUrl = (text: string) => {
@@ -8,9 +8,11 @@ export const getGravatarUrl = (text: string) => {
 };
 
 export const TeamOwnerReference = ({ ownerReference }: { ownerReference: OwnerReference }) => {
+  const { data: team } = useGetTeamQuery({ name: ownerReference.uid });
   const { data: teamMembers } = useGetTeamMembersQuery({ name: ownerReference.uid });
 
-  const avatarURL = getGravatarUrl(ownerReference.name);
+  const teamName = team?.spec?.title || ownerReference.name;
+  const avatarURL = getGravatarUrl(teamName);
 
   const membersTooltip = (
     <>
@@ -29,7 +31,7 @@ export const TeamOwnerReference = ({ ownerReference }: { ownerReference: OwnerRe
     <Link href={`/org/teams/edit/${ownerReference.uid}/members`} key={ownerReference.uid}>
       <Tooltip content={membersTooltip}>
         <Stack gap={1} alignItems="center">
-          <Avatar src={avatarURL} alt={ownerReference.name} /> {ownerReference.name}
+          <Avatar src={avatarURL} alt={teamName} /> {teamName}
         </Stack>
       </Tooltip>
     </Link>

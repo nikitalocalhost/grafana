@@ -17,7 +17,6 @@ import (
 	_ "github.com/Azure/go-autorest/autorest"
 	_ "github.com/Azure/go-autorest/autorest/adal"
 	_ "github.com/aws/aws-sdk-go-v2/credentials"
-	_ "github.com/aws/aws-sdk-go-v2/service/secretsmanager"
 	_ "github.com/aws/aws-sdk-go-v2/service/sts"
 	_ "github.com/beevik/etree"
 	_ "github.com/crewjam/saml"
@@ -38,6 +37,10 @@ import (
 	_ "github.com/spyzhov/ajson"
 	_ "github.com/stretchr/testify/require"
 	_ "github.com/testcontainers/testcontainers-go"
+	_ "go.opentelemetry.io/otel/exporters/otlp/otlplog/otlploggrpc"
+	_ "go.opentelemetry.io/otel/log"
+	_ "go.opentelemetry.io/otel/sdk/log"
+	_ "go.opentelemetry.io/proto/otlp/collector/logs/v1" // @grafana/grafana-operator-experience-squad
 	_ "gocloud.dev/secrets/awskms"
 	_ "gocloud.dev/secrets/azurekeyvault"
 	_ "gocloud.dev/secrets/gcpkms"

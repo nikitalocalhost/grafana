@@ -1,6 +1,8 @@
 import { memoize } from 'lodash';
 import moment from 'moment-timezone';
 
+import { t } from '@grafana/i18n';
+
 import { TimeZone } from '../types/time';
 
 import { getTimeZone } from './common';
@@ -14,11 +16,11 @@ export enum InternalTimeZones {
 export const timeZoneFormatUserFriendly = (timeZone: TimeZone | undefined) => {
   switch (getTimeZone({ timeZone })) {
     case 'browser':
-      return 'Local browser time';
+      return t('grafana-data.datetime.timezones.localBrowserTime', 'Local browser time');
     case 'utc':
-      return 'UTC';
+      return t('grafana-data.datetime.timezones.timezone.UTC', 'UTC');
     default:
-      return timeZone;
+      return t(`grafana-data.datetime.timezones.timezone.${timeZone}`, timeZone);
   }
 };
 
@@ -108,7 +110,7 @@ const mapInternal = (zone: string, timestamp: number): TimeZoneInfo | undefined 
   switch (zone) {
     case InternalTimeZones.utc: {
       return {
-        name: 'Coordinated Universal Time',
+        name: t('grafana-data.datetime.timezones.info.name.utc', 'Coordinated Universal Time'),
         ianaName: 'UTC',
         zone,
         countries: [],
@@ -128,7 +130,7 @@ const mapInternal = (zone: string, timestamp: number): TimeZoneInfo | undefined 
         offsetInMins: 0,
         ...info,
         ianaName: info?.ianaName ?? '',
-        name: 'Default',
+        name: t('grafana-data.datetime.timezones.info.name.default', 'Default'),
         zone,
       };
     }
@@ -139,10 +141,10 @@ const mapInternal = (zone: string, timestamp: number): TimeZoneInfo | undefined 
 
       return {
         countries: countriesByTimeZone[tz] ?? [],
-        abbreviation: 'Your local time',
+        abbreviation: t('grafana-data.datetime.timezones.info.abbreviation.browserTime', 'Your local time'),
         offsetInMins: new Date().getTimezoneOffset(),
         ...info,
-        name: 'Browser Time',
+        name: t('grafana-data.datetime.timezones.info.name.browserTime', 'Browser Time'),
         ianaName: info?.ianaName ?? '',
         zone,
       };

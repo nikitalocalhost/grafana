@@ -2,6 +2,7 @@ import { css } from '@emotion/css';
 import { useMemo } from 'react';
 
 import { GrafanaTheme2, TimeZoneInfo } from '@grafana/data';
+import { t } from '@grafana/i18n';
 
 import { useStyles2 } from '../../../themes/ThemeContext';
 
@@ -20,6 +21,11 @@ export const TimeZoneDescription = ({ info }: Props) => {
   return <div className={styles.description}>{description}</div>;
 };
 
+const normalizeCountryName = (name: string): string => {
+  const regex = /\s|'|\(|\)|\./g;
+  return name.replace(regex, '_');
+};
+
 const useDescription = (info?: TimeZoneInfo): string => {
   return useMemo(() => {
     const parts: string[] = [];
@@ -35,11 +41,11 @@ const useDescription = (info?: TimeZoneInfo): string => {
 
     if (info.countries.length > 0) {
       const country = info.countries[0];
-      parts.push(country.name);
+      parts.push(t(`grafana-data.datetime.timezones.country.${normalizeCountryName(country.name)}`, country.name));
     }
 
     if (info.abbreviation) {
-      parts.push(info.abbreviation);
+      parts.push(t(`grafana-data.datetime.timezones.timezone.${info.abbreviation}`, info.abbreviation));
     }
 
     return parts.join(', ');

@@ -4,6 +4,8 @@ import { memo, useMemo, useState } from 'react';
 import { GrafanaTheme2, isDateTime, rangeUtil, RawTimeRange, TimeOption, TimeRange, TimeZone } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
 import { t, Trans } from '@grafana/i18n';
+// eslint-disable-next-line
+import { getResolvedLanguage } from '@grafana/i18n/internal';
 
 import { useStyles2, useTheme2 } from '../../../themes/ThemeContext';
 import { getFocusStyles } from '../../../themes/mixins';
@@ -73,6 +75,11 @@ export const TimePickerContentWithScreenSize = (props: PropsWithScreenSize) => {
 
   const filteredQuickOptions = quickOptions.filter((o) => o.display.toLowerCase().includes(searchTerm.toLowerCase()));
 
+  /* FIXME: bad workaround for hiding custom time picker */
+  // eslint-disable-next-line
+  const hideCustomTimePicker = getResolvedLanguage() == 'ru-RU';
+  const rightSideStyles = hideCustomTimePicker ? { width: '100%' } : {};
+
   const onChangeTimeOption = (timeOption: TimeOption) => {
     return onChange(mapOptionToTimeRange(timeOption));
   };
@@ -81,7 +88,7 @@ export const TimePickerContentWithScreenSize = (props: PropsWithScreenSize) => {
     <div id="TimePickerContent" className={cx(styles.container, className)}>
       <div className={styles.body}>
         {(!isFullscreen || !hideQuickRanges) && (
-          <div className={styles.rightSide}>
+          <div className={styles.rightSide} style={rightSideStyles}>
             <div className={styles.timeRangeFilter}>
               <FilterInput
                 width={0}
@@ -98,13 +105,13 @@ export const TimePickerContentWithScreenSize = (props: PropsWithScreenSize) => {
             </div>
           </div>
         )}
-        {isFullscreen && (
+        {(!isFullscreen || !hideCustomTimePicker) && (
           <div className={styles.leftSide}>
             <FullScreenForm {...props} historyOptions={historyOptions} />
           </div>
         )}
       </div>
-      {!hideTimeZone && isFullscreen && (
+      {!hideTimeZone && isFullscreen && !hideCustomTimePicker && (
         <TimePickerFooter
           timeZone={timeZone}
           fiscalYearStartMonth={fiscalYearStartMonth}

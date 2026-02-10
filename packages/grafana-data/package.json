@@ -84,7 +84,7 @@
     "xss": "^1.0.14"
   },
   "devDependencies": {
-    "@grafana/scenes": "patch:@grafana/scenes@patch%3A@grafana/scenes@npm%253A6.42.1%23~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch%3A%3Aversion=6.42.1&hash=002ff4#~/.yarn/patches/@grafana-scenes-patch-fab3138d0f.patch",
+    "@grafana/scenes": "patch:@grafana/scenes@npm%3A6.42.1#~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch",
     "@rollup/plugin-node-resolve": "16.0.1",
     "@testing-library/react": "16.3.0",
     "@types/history": "4.7.11",

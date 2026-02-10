@@ -27,7 +27,7 @@
     },
     "permissions": {
       "add-label": "Добавить разрешение",
-      "loading": "",
+      "loading": "Загрузка…",
       "no-permissions": "Нет разрешений",
       "permissions-change-warning": "Изменятся разрешения для этой и всех дочерних папок. В итоге будут затронуты:",
       "role": "Роль",
@@ -4158,7 +4158,7 @@
       "description": "Использовать пользовательское значение"
     },
     "options": {
-      "loading": "",
+      "loading": "Загрузка…",
       "no-found": "Параметры не найдены."
     }
   },
@@ -6064,7 +6064,7 @@
       "current-file-not-found": "Текущий файл дашборда не найден",
       "drawer-title": "Переместить подготовленный дашборд",
       "file-load-error": "Ошибка при загрузке дашборда",
-      "loading-dashboard-data": "",
+      "loading-dashboard-data": "Загрузка…",
       "move-action": "Переместить дашборд",
       "move-read-only-message": "Дашборд невозможно переместить непосредственно из Grafana, поскольку репозиторий доступен только для чтения. Чтобы переместить этот дашборд, переместите файл в репозиторий Git.",
       "moving": "Перемещение...",
@@ -8080,6 +8080,51 @@
   },
   "grafana-data": {
     "datetime": {
+      "durationutils": {
+        "duration-map": {
+          "y": "г",
+          "Y": "г",
+          "years": "г",
+          "m": "мес",
+          "M": "мес",
+          "months": "мес",
+          "w": "нед",
+          "W": "нед",
+          "weeks": "нед",
+          "d": "дн",
+          "D": "дн",
+          "days": "дн",
+          "h": "ч",
+          "H": "ч",
+          "hours": "ч",
+          "m": "мин",
+          "minutes": "мин",
+          "s": "сек",
+          "S": "сек",
+          "seconds": "сек"
+        }
+      },
+      "timezones": {
+        "info": {
+          "name": {
+            "default": "По умолчанию",
+            "browserTime": "Время браузера",
+            "utc": "Всемирное координированное время"
+          },
+          "abbreviation": {
+            "browserTime": "Локальное время",
+            "utc": "UTC"
+          }
+        },
+        "localBrowserTime": "Локальное время браузера",
+        "timezone": {
+          "utc": "UTC",
+          "MSK": "МСК"
+        },
+        "country": {
+          "Russian_Federation": "Россия"
+        }
+      },
       "rangeutils": {
         "getBaseRangeOptions": {
           "dayBeforeYesterday": "Позавчера",
@@ -13332,7 +13377,7 @@
       "forwards-time-aria-label": "Переместить временной диапазон вперед",
       "to": "на",
       "zoom-out-button": "Уменьшение масштаба временного диапазона",
-      "zoom-out-tooltip": ""
+      "zoom-out-tooltip": "Масштабирование диапазона времени <br /> CTRL+Z"
     },
     "time-range": {
       "apply": "Применить временной диапазон",

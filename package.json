@@ -296,7 +296,7 @@
     "@grafana/plugin-ui": "^0.10.10",
     "@grafana/prometheus": "workspace:*",
     "@grafana/runtime": "workspace:*",
-    "@grafana/scenes": "patch:@grafana/scenes@npm%3A6.42.1#~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch",
+    "@grafana/scenes": "patch:@grafana/scenes@patch%3A@grafana/scenes@npm%253A6.42.1%23~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch%3A%3Aversion=6.42.1&hash=42a396#~/.yarn/patches/@grafana-scenes-patch-1acc20b1f4.patch",
     "@grafana/scenes-react": "^6.42.1",
     "@grafana/schema": "workspace:*",
     "@grafana/sql": "workspace:*",
@@ -462,7 +462,7 @@
     "js-yaml@npm:4.1.0": "^4.1.0",
     "js-yaml@npm:=4.1.0": "^4.1.0",
     "nodemailer": "7.0.7",
-    "@grafana/scenes@npm:6.42.1": "patch:@grafana/scenes@npm%3A6.42.1#~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch"
+    "@grafana/scenes@npm:6.42.1": "patch:@grafana/scenes@patch%3A@grafana/scenes@npm%253A6.42.1%23~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch%3A%3Aversion=6.42.1&hash=42a396#~/.yarn/patches/@grafana-scenes-patch-1acc20b1f4.patch"
   },
   "workspaces": {
     "packages": [

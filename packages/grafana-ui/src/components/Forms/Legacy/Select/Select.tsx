@@ -6,8 +6,10 @@ import { default as ReactSelect, components, MenuListProps } from 'react-select'
 import { default as ReactAsyncSelect } from 'react-select/async';
 import Creatable from 'react-select/creatable';
 
-// Components
 import { SelectableValue, ThemeContext } from '@grafana/data';
+import { t } from '@grafana/i18n';
+
+// Components
 
 import { ScrollContainer } from '../../../ScrollContainer/ScrollContainer';
 import { SingleValue } from '../../../Select/SingleValue';
@@ -178,7 +180,7 @@ export class AsyncSelect<T> extends PureComponent<AsyncProps<T>> {
   static defaultProps: Partial<AsyncProps<unknown>> = {
     className: '',
     components: {},
-    loadingMessage: () => 'Loading...',
+    loadingMessage: () => t('common.loading', 'Loading...'),
     isDisabled: false,
     isClearable: false,
     isMulti: false,

@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react';
 
+import { t } from '@grafana/i18n';
 import { config } from '@grafana/runtime';
 import { RulerGrafanaRuleDTO } from 'app/types/unified-alerting-dto';
 
@@ -29,7 +30,7 @@ const History = ({ rule }: HistoryProps) => {
   const ruleUID = rule.grafana_alert.uid;
 
   return (
-    <Suspense fallback={'Loading...'}>
+    <Suspense fallback={t('common.loading', 'Loading...')}>
       {implementation === StateHistoryImplementation.Loki && <LokiStateHistory ruleUID={ruleUID} />}
       {implementation === StateHistoryImplementation.Annotations && <AnnotationsStateHistory ruleUID={ruleUID} />}
     </Suspense>

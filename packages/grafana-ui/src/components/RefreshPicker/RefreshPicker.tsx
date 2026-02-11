@@ -2,7 +2,7 @@ import { css } from '@emotion/css';
 import { formatDuration } from 'date-fns';
 import { PureComponent } from 'react';
 
-import { SelectableValue, parseDuration } from '@grafana/data';
+import { SelectableValue, parseDuration, reverseParseDuration } from '@grafana/data';
 import { selectors } from '@grafana/e2e-selectors';
 import { t } from '@grafana/i18n';
 
@@ -176,7 +176,7 @@ export function intervalsToOptions({
     const ariaLabel = formatDuration(duration);
 
     return {
-      label: interval,
+      label: reverseParseDuration(duration),
       value: interval,
       ariaLabel: ariaLabel,
     };

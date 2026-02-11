@@ -167,7 +167,7 @@ export default class StandardAnnotationQueryEditor extends PureComponent<Props, 
     const { events, panelData } = response;
 
     if (running || response?.panelData?.state === LoadingState.Loading || !response) {
-      return <p>{'loading...'}</p>;
+      return <p>{t('common.loading', 'loading...')}</p>;
     }
 
     if (panelData?.errors) {

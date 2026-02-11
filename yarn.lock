@@ -3066,7 +3066,7 @@ __metadata:
   dependencies:
     "@braintree/sanitize-url": "npm:7.0.1"
     "@grafana/i18n": "npm:12.3.2"
-    "@grafana/scenes": "patch:@grafana/scenes@npm%3A6.42.1#~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch"
+    "@grafana/scenes": "patch:@grafana/scenes@patch%3A@grafana/scenes@npm%253A6.42.1%23~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch%3A%3Aversion=6.42.1&hash=42a396#~/.yarn/patches/@grafana-scenes-patch-1acc20b1f4.patch"
     "@grafana/schema": "npm:12.3.2"
     "@leeoniya/ufuzzy": "npm:1.0.19"
     "@rollup/plugin-node-resolve": "npm:16.0.1"
@@ -3602,7 +3602,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grafana/scenes@patch:@grafana/scenes@npm%3A6.42.1#~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch":
+"@grafana/scenes@patch:@grafana/scenes@npm%3A6.42.1#~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch::version=6.42.1&hash=42a396":
   version: 6.42.1
   resolution: "@grafana/scenes@patch:@grafana/scenes@npm%3A6.42.1#~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch::version=6.42.1&hash=42a396"
   dependencies:
@@ -3625,6 +3625,32 @@ __metadata:
     react-dom: ^18.0.0
     react-router-dom: ^6.28.0
   checksum: 10/434d16c494ed65b01abcc07ee17540e765f6a4a016a6ec963c7e39179451f9a0e01041a338b76be7bb841d8aaa4da98939a48ef83d152c23cb360e5ddcf114b7
+  languageName: node
+  linkType: hard
+
+"@grafana/scenes@patch:@grafana/scenes@patch%3A@grafana/scenes@npm%253A6.42.1%23~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch%3A%3Aversion=6.42.1&hash=42a396#~/.yarn/patches/@grafana-scenes-patch-1acc20b1f4.patch":
+  version: 6.42.1
+  resolution: "@grafana/scenes@patch:@grafana/scenes@patch%3A@grafana/scenes@npm%253A6.42.1%23~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch%3A%3Aversion=6.42.1&hash=42a396#~/.yarn/patches/@grafana-scenes-patch-1acc20b1f4.patch::version=6.42.1&hash=48ac92"
+  dependencies:
+    "@floating-ui/react": "npm:^0.26.16"
+    "@leeoniya/ufuzzy": "npm:^1.0.16"
+    "@tanstack/react-virtual": "npm:^3.9.0"
+    i18next-parser: "npm:9.3.0"
+    react-grid-layout: "npm:1.3.4"
+    react-use: "npm:17.5.0"
+    react-virtualized-auto-sizer: "npm:1.0.24"
+    uuid: "npm:^9.0.0"
+  peerDependencies:
+    "@grafana/data": ">=10.4"
+    "@grafana/e2e-selectors": ">=10.4"
+    "@grafana/i18n": "*"
+    "@grafana/runtime": ">=10.4"
+    "@grafana/schema": ">=10.4"
+    "@grafana/ui": ">=10.4"
+    react: ^18.0.0
+    react-dom: ^18.0.0
+    react-router-dom: ^6.28.0
+  checksum: 10/f1ebd6b37b8f558e56cf0394b7409ac5e37470d57837d4b8b92062f2be775a198f4c332498158bf4ee7a59596154df4ce42903a04073cd44248de913ac8df75e
   languageName: node
   linkType: hard
 
@@ -18930,7 +18956,7 @@ __metadata:
     "@grafana/plugin-ui": "npm:^0.10.10"
     "@grafana/prometheus": "workspace:*"
     "@grafana/runtime": "workspace:*"
-    "@grafana/scenes": "patch:@grafana/scenes@npm%3A6.42.1#~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch"
+    "@grafana/scenes": "patch:@grafana/scenes@patch%3A@grafana/scenes@npm%253A6.42.1%23~/.yarn/patches/@grafana-scenes-npm-6.42.1-43a98a09a6.patch%3A%3Aversion=6.42.1&hash=42a396#~/.yarn/patches/@grafana-scenes-patch-1acc20b1f4.patch"
     "@grafana/scenes-react": "npm:^6.42.1"
     "@grafana/schema": "workspace:*"
     "@grafana/sql": "workspace:*"

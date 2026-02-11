@@ -59,7 +59,7 @@ function useStateHistoryModal() {
         className={styles.modal}
         contentClassName={styles.modalContent}
       >
-        <Suspense fallback={'Loading...'}>
+        <Suspense fallback={t('common.loading', 'Loading...')}>
           {implementation === StateHistoryImplementation.Loki && <LokiStateHistory ruleUID={rule.grafana_alert.uid} />}
           {implementation === StateHistoryImplementation.Annotations && (
             <AnnotationsStateHistory ruleUID={rule.grafana_alert.uid ?? ''} />

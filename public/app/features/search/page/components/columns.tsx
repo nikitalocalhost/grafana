@@ -119,7 +119,7 @@ export const generateColumns = (
 
       if (!name?.length) {
         const loading = p.row.index >= response.view.dataFrame.length;
-        name = loading ? 'Loading...' : 'Missing title'; // normal for panels
+        name = loading ? t('common.loading', 'Loading...') : 'Missing title'; // normal for panels
         classNames += ' ' + styles.missingTitleText;
       }
       const { key, ...cellProps } = p.cellProps;

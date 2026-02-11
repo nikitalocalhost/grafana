@@ -4373,6 +4373,9 @@
         "version": "Версия"
       },
       "view-json-diff": "Просмотреть JSON Diff, чтобы увидеть все изменения"
+    },
+    "pageLoader": {
+      "loading-text": "Загрузка {{pageName}}..."
     }
   },
   "correlations": {
@@ -11022,7 +11025,7 @@
       "create-library-panel": "Создать панель библиотеки",
       "duplicate": "Дублировать",
       "edit": "Редактировать",
-      "explore": "Explore",
+      "explore": "Исследовать",
       "get-help": "Справка",
       "hide-legend": "Скрыть условные обозначения",
       "inspect": "Проверить",

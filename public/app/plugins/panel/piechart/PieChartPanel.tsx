@@ -10,6 +10,7 @@ import {
   getFieldDisplayValues,
   PanelProps,
 } from '@grafana/data';
+import { t } from '@grafana/i18n';
 import { PanelDataErrorView } from '@grafana/runtime';
 import { HideSeriesConfig, SortOrder, LegendDisplayMode } from '@grafana/schema';
 import {
@@ -109,7 +110,11 @@ function getLegend(props: Props, displayValues: FieldDisplay[]) {
           let displayValues = [];
 
           if (valuesToShow.includes(PieChartLegendValues.Value)) {
-            displayValues.push({ numeric: display.numeric, text: formattedValueToString(display), title: 'Value' });
+            displayValues.push({
+              numeric: display.numeric,
+              text: formattedValueToString(display),
+              title: t('piechart.legend-values-options.label-value', 'Value'),
+            });
           }
 
           if (valuesToShow.includes(PieChartLegendValues.Percent)) {
@@ -123,7 +128,7 @@ function getLegend(props: Props, displayValues: FieldDisplay[]) {
                 hideFromViz || isNaN(fractionOfTotal)
                   ? (props.fieldConfig.defaults.noValue ?? '-')
                   : percentOfTotal.toFixed(value.field.decimals ?? 0) + '%',
-              title: valuesToShow.length > 1 ? 'Percent' : '',
+              title: valuesToShow.length > 1 ? t('piechart.labels-options.label-percent', 'Percent') : '',
             });
           }
 

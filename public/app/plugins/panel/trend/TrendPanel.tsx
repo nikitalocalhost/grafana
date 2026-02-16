@@ -10,6 +10,7 @@ import {
   TimeRange,
   useDataLinksContext,
 } from '@grafana/data';
+import { t } from '@grafana/i18n';
 import { config, PanelDataErrorView } from '@grafana/runtime';
 import { KeyboardPlugin, TooltipDisplayMode, TooltipPlugin2, usePanelContext } from '@grafana/ui';
 import { TooltipHoverMode } from '@grafana/ui/internal';
@@ -75,7 +76,7 @@ export const TrendPanel = ({
       xFieldIdx = frames[0] ? frames[0].fields.findIndex((f) => f.type === FieldType.number) : -1;
       if (xFieldIdx === -1) {
         return {
-          warning: 'No numeric fields found for X axis',
+          warning: t('trend.warning-no-numeric-fields-for-x-axis', 'No numeric fields found for X axis'),
           frames,
         };
       }

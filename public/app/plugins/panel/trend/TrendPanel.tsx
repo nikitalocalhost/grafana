@@ -55,7 +55,10 @@ export const TrendPanel = ({
   const info = useMemo(() => {
     if (data.series.length > 1) {
       return {
-        warning: 'Only one frame is supported, consider adding a join transformation',
+        warning: t(
+          'trend.warning-only-one-frame-supported',
+          'Only one frame is supported, consider adding a join transformation'
+        ),
         frames: data.series,
       };
     }
@@ -66,7 +69,9 @@ export const TrendPanel = ({
       xFieldIdx = findFieldIndex(options.xField, frames[0]);
       if (xFieldIdx == null) {
         return {
-          warning: 'Unable to find field: ' + options.xField,
+          warning: t('trend.warning-unable-to-find-field', 'Unable to find field: {{field}}', {
+            field: options.xField,
+          }),
           frames: data.series,
         };
       }
@@ -87,7 +92,7 @@ export const TrendPanel = ({
       const field = frames[0].fields[xFieldIdx];
       if (field.type === FieldType.number && !isLikelyAscendingVector(field.values)) {
         return {
-          warning: `Values must be in ascending order`,
+          warning: t('trend.warning-values-must-be-in-asc-order', 'Values must be in ascending order'),
           frames,
         };
       }

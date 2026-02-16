@@ -14317,7 +14317,11 @@
     "category-x-axis": "Ось X",
     "description-x-field": "Увеличивающееся числовое значение",
     "name-x-field": "Поле X",
-    "placeholder-x-field": "Первое числовое значение"
+    "placeholder-x-field": "Первое числовое значение",
+    "warning-no-numeric-fields-for-x-axis": "Не найдено числовых полей для оси X",
+    "warning-values-must-be-in-asc-order": "Значения должны быть в порядке возрастания",
+    "warning-unable-to-find-field": "Не удалось найти поле: {{field}}",
+    "warning-only-one-frame-supported": "Поддерживается только один фрейм, рассмотрите возможность объединения"
   },
   "upgrade-box": {
     "discovery-text": "Вы открыли для себя функцию Pro.",
